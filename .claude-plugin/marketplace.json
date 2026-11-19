@@ -1,0 +1,17 @@
+{
+  "name": "goat-academy",
+  "owner": {
+    "name": "GOAT Academy"
+  },
+  "metadata": {
+    "description": "GOAT Academy-ийн гишүүдэд зориулсан Claude Code plugin-ууд"
+  },
+  "plugins": [
+    {
+      "name": "goat-academy",
+      "source": "./",
+      "description": "Вирал формат олигч ба тохируулах заавар (Instagram Reels, TikTok)",
+      "version": "0.1.0"
+    }
+  ]
+}
