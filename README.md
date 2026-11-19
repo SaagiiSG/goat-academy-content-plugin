@@ -1,5 +1,7 @@
 # 🐐 GOAT Academy: Claude Code plugin
 
+<p align="center"><img src="assets/poster.png" alt="GOAT Academy: вирал формат олигч"></p>
+
 GOAT Academy-ийн гишүүдэд зориулсан Claude Code plugin. Таны niche-д Instagram Reels болон
 TikTok дээр **яг одоо вирал болж буй форматыг** бодит датагаар олж, танд зориулсан
 **10 бэлэн пост санаа** болон traffic өсгөх **2 долоо хоногийн төлөвлөгөө**-г монголоор
