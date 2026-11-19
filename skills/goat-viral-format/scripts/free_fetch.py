@@ -30,9 +30,11 @@ Scoring (per post, video posts only, posts younger than 7 days excluded):
     views_per_follower = views / followers
   A post is flagged VIRAL when: account is small AND outlier >= threshold.
 
-Instagram blocks logged-out use quickly. If you get "login required" / 401 / 429:
-run ONCE in your own terminal:   instaloader --login MY_IG
-(it asks for the password itself; never paste it into chat), then add --session MY_IG.
+Instagram requires a login (tested Nov 2026: logged-out scans are redirected to login).
+Easiest, no password: be logged into Instagram in Chrome/Firefox, then run ONCE in your own
+terminal:   instaloader --load-cookies chrome      (or firefox, edge, safari)
+Alternative: instaloader --login MY_IG   (asks for the password itself; never paste it in chat)
+Then add --session MY_IG.
 Use a spare account, not your main one. Hashtag discovery on Instagram needs a session.
 
 Only public post stats + captions are read. No follower lists, no personal data.
@@ -93,7 +95,8 @@ def discover_tiktok(tag, limit):
     with yt_dlp.YoutubeDL({**YTDLP_OPTS, "playlistend": limit}) as ydl:
         info = ydl.extract_info(f"https://www.tiktok.com/tag/{tag.lstrip('#')}", download=False)
     if not info:
-        raise RuntimeError("TikTok hashtag хуудсыг уншиж чадсангүй (yt-dlp-г шинэчил, эсвэл вэб хайлтаар handle ол)")
+        raise RuntimeError("TikTok hashtag хуудсыг yt-dlp уншиж чадсангүй. Энэ нь түгээмэл: "
+                           "аккаунтын handle-ыг вэб хайлтаар олоод шууд 'scan'-д өг")
     accounts = {}
     for e in (info.get("entries") or [])[:limit]:
         if not e:
@@ -126,6 +129,24 @@ def discover_instagram(tag, limit, session):
 
 
 # ------------------------------------------------------------------ scan
+def tiktok_followers_from_page(username):
+    """yt-dlp often omits follower counts; the public profile page embeds them."""
+    import re
+    import urllib.request
+    req = urllib.request.Request(
+        f"https://www.tiktok.com/@{username}",
+        headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                               "(KHTML, like Gecko) Chrome/131.0 Safari/537.36",
+                 "Accept-Language": "en-US,en;q=0.9"},
+    )
+    try:
+        html = urllib.request.urlopen(req, timeout=20).read().decode("utf-8", "ignore")
+    except Exception:
+        return None
+    m = re.search(r'"followerCount":(\d+)', html)
+    return int(m.group(1)) if m else None
+
+
 def scan_tiktok(username, limit):
     yt_dlp = need_ytdlp()
     username = username.lstrip("@")
@@ -149,6 +170,8 @@ def scan_tiktok(username, limit):
             "caption": (e.get("description") or e.get("title") or "")[:300],
             "is_video": True,
         })
+    if followers is None:
+        followers = tiktok_followers_from_page(username)
     return followers, posts
 
 
@@ -201,11 +224,21 @@ def score(account, followers, posts, args):
 # ------------------------------------------------------------------ main
 def cmd_discover(args):
     fn = discover_tiktok if args.platform == "tiktok" else (lambda t, l: discover_instagram(t, l, args.session))
-    accounts = fn(args.hashtag, args.limit)
+    try:
+        accounts = fn(args.hashtag, args.limit)
+    except SystemExit:
+        raise
+    except Exception as e:
+        print(f"✗ Hashtag хайлт амжилтгүй: {type(e).__name__}: {str(e)[:200]}")
+        print("Instagram бол --session шаардлагатай. Эсвэл вэб хайлтаар handle олоод шууд 'scan' ажиллуул.")
+        return
     accounts.sort(key=lambda a: a["max_views"], reverse=True)
     json.dump({"platform": args.platform, "hashtag": args.hashtag, "accounts": accounts},
               open(args.out, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     print(f"{len(accounts)} аккаунт олдлоо (#{args.hashtag}) · JSON: {args.out}")
+    if not accounts:
+        print("Hashtag-аас аккаунт гарсангүй (платформ хаасан байж магадгүй). "
+              "Вэб хайлтаар handle олоод шууд 'scan' ажиллуул.")
     for a in accounts:
         f = f"{a['followers']:,}" if a["followers"] else "?"
         print(f"  @{a['account']:<24} дагагч {f:>10}  хамгийн их үзэлт {a['max_views']:>10,}")

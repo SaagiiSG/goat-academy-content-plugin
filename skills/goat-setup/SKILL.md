@@ -55,19 +55,27 @@ AskUserQuestion (байвал) эсвэл энгийн асуултаар сон
    ```bash
    python3 -m pip install --user -U yt-dlp instaloader
    ```
-3. TikTok туршилт (жижиг, 5 пост):
+3. TikTok туршилт (нэвтрэлт хэрэггүй):
    ```bash
    python3 "<goat-viral-format skill folder>/scripts/free_fetch.py" scan tiktok <niche-ийн жижиг аккаунт> --limit 10 --out /tmp/goat-test.json
    ```
    Скриптийн зам: энэ skill-ийн хажууд байгаа `goat-viral-format/scripts/free_fetch.py`.
    Олдохгүй бол `find ~/.claude -name free_fetch.py` гэж хай.
-4. Instagram: эхлээд нэвтрэлтгүй туршина. "login required" / 401 / 429 гарвал гишүүнд:
-   - Өөрийн терминалд **өөрөө** `instaloader --login ТАНЫ_IG_НЭР` гэж бичээд нууц үгээ
-     тэнд оруулна (Claude-д хэзээ ч бүү өг). Үндсэн биш, нэмэлт аккаунт ашиглахыг зөвлө.
-   - Дараа нь skill нь `--session ТАНЫ_IG_НЭР`-ээр ажиллана. Энэ нэрийг
-     `~/.goat-academy/state.json`-д `"ig_session": "ТАНЫ_IG_НЭР"` гэж хадгал (нууц үг биш,
-     зөвхөн нэр), ингэснээр дараагийн удаа дахин асуухгүй.
-   - Hashtag-аас аккаунт олох (`discover instagram`) нь нэвтрэлтгүйгээр бараг ажилладаггүй.
+4. **Instagram нэвтрэлт заавал хэрэгтэй** (нэвтрэлтгүй үед Instagram хаадаг, 2026.11-д
+   шалгасан). Нууц үг бичихгүй хамгийн хялбар арга:
+   - Гишүүн Chrome (эсвэл Firefox, Edge, Safari)-д Instagram-даа нэвтэрсэн байх. Үндсэн
+     биш, нэмэлт аккаунт ашиглахыг зөвлө: их хүсэлт илгээвэл Instagram түр хаах эрсдэлтэй.
+   - Гишүүн **өөрийн терминалд** ажиллуулна (Claude биш, учир нь хөтчийн cookie уншина):
+     ```bash
+     instaloader --load-cookies chrome
+     ```
+     Энэ нь session файл хадгалж, ямар хэрэглэгчийн нэрээр нэвтэрснийг хэлнэ.
+   - Өөр арга: `instaloader --login ТАНЫ_IG_НЭР` (нууц үгийг терминал өөрөө асууна,
+     Claude-д хэзээ ч бүү өг).
+   - Хэрэглэгчийн нэрийг `~/.goat-academy/state.json`-д `"ig_session": "НЭР"` гэж хадгал
+     (нууц үг биш, зөвхөн нэр). Skill нь `--session НЭР`-ээр ажиллана.
+   - Туршилт: `... scan instagram <жижиг аккаунт> --limit 10 --session НЭР`.
+   - Гишүүн Instagram холбохыг хүсэхгүй бол TikTok-оор л ажиллаж болно.
 5. Ажиллахгүй бол: `python3 -m pip install --user -U yt-dlp` (yt-dlp-г шинэчлэх нь
    TikTok-ийн ихэнх алдааг засдаг). Дахин бүтэлгүйтвэл B сонголтыг санал болго.
 

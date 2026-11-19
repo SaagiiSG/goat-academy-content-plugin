@@ -112,14 +112,15 @@ Tool ажиллахгүй (хаалт, credit дууссан, нэвтрэлт) 
 Зорилго: niche-ийн **15–25 жижиг аккаунт**. Олон аккаунт шалгах тусам давтагдсан формат
 илүү тод харагдана.
 
-1. **Hashtag-аас** (хамгийн хурдан): niche-ийн 2–3 hashtag-аар
+1. **Hashtag-аас** (Instagram: `--session`-тэй үед ажиллана. TikTok: yt-dlp hashtag
+   хуудсыг ихэвчлэн уншиж чаддаггүй, тиймээс TikTok-д 2-р аргыг эхэлж хэрэглэ):
    ```bash
    python3 scripts/free_fetch.py discover tiktok homeworkout --limit 40 --out /tmp/goat-d-tt.json
    python3 scripts/free_fetch.py discover instagram homeworkout --limit 40 --session IG_НЭР --out /tmp/goat-d-ig.json
    ```
    Англи ба монгол hashtag хоёуланг нь оролд (жишээ `homeworkout`, `гэрийндасгал`).
    Үр дүнгээс дагагч нь ≤100K эсвэл тодорхойгүй аккаунтыг сонго.
-2. **Вэб хайлтаар нэмэх** (hashtag хаагдсан эсвэл цөөн гарсан үед):
+2. **Вэб хайлтаар** (TikTok-ийн үндсэн арга, мөн hashtag хаагдсан үед):
    `site:tiktok.com "@" homeworkout`, `site:instagram.com/reel home workout beginner`,
    "small creator" / "micro creator" + niche.
 3. Холимог: 🇲🇳 Монгол 3–6 аккаунт (ижил үзэгч), үлдсэн нь гадаадын жижиг аккаунт.
