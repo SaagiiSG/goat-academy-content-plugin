@@ -29,12 +29,18 @@ Claude Code-ийг дахин нээгээрэй. Эхний чатад Claude �
 
 Командгүйгээр "Юу пост хийх вэ?", "Миний niche-д юу ажиллаж байна?" гэж асуухад ч болно.
 
+## Вирал формат гэж юу вэ
+
+**Жижиг аккаунт (≤100K дагагч) өөрийн ердийн видеоноосоо 3 дахин буюу түүнээс их үзэлт
+авсан бичлэг.** Том аккаунт дагагчдынхаа хүчээр үзэлт авдаг. Жижиг аккаунтын огцом өсөлт
+бол *формат* ажилласны баталгаа, үүнийг та давтаж чадна.
+
 ## Дата tool-ууд
 
 | Сонголт | Үнэ | Тэмдэглэл |
 |---|---|---|
-| **Үнэгүй**: [yt-dlp](https://github.com/yt-dlp/yt-dlp) (TikTok) + [Instaloader](https://github.com/instaloader/instaloader) (Instagram) | 0₮ | Plugin-д скрипт нь багтсан. TikTok заримдаа эвдэрдэг (yt-dlp-г шинэчлэхэд засагддаг), Instagram нэвтрэлт шаардаж магадгүй |
-| **[Apify](https://apify.com)** (санал болгох) | Сар бүр үнэгүй credit | Хамгийн найдвартай |
+| **Үнэгүй (үндсэн)**: [yt-dlp](https://github.com/yt-dlp/yt-dlp) (TikTok) + [Instaloader](https://github.com/instaloader/instaloader) (Instagram) | 0₮ | Plugin-д скрипт нь багтсан. TikTok заримдаа эвдэрдэг (yt-dlp-г шинэчлэхэд засагддаг), Instagram нэвтрэлт шаардаж магадгүй |
+| **[Apify](https://apify.com)** (нөөц) | Сар бүр үнэгүй credit | Хамгийн найдвартай |
 | **Юу ч холбохгүй** | 0₮ | Вэб хайлтаар ажиллана, тоон дата сул |
 
 ## Нууцлал
@@ -60,8 +66,9 @@ skills/goat-viral-format/
 ---
 
 **English:** A Claude Code plugin for GOAT Academy members. It finds viral Instagram Reels
-and TikTok formats in a member's niche using outlier scoring (post views ÷ the account's
-median views), then turns them into 10 ready-to-shoot post ideas and a 2-week traffic plan,
+and TikTok formats in a member's niche: posts from small accounts (≤100K followers) that got
+3x+ the account's usual views (median of its other recent videos), fetched free with yt-dlp
+and Instaloader, then turns them into 10 ready-to-shoot post ideas and a 2-week traffic plan,
 in Mongolian. For a member's first 3 sessions, a SessionStart hook offers a guided setup.
 
 License: MIT

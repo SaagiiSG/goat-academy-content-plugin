@@ -1,7 +1,8 @@
 # Дата tool-ууд: ашиглах ба суулгах
 
 ## Агуулга
-1. Apify (санал болгох)
+0. Үнэгүй скрипт (үндсэн арга)
+1. Apify (нөөц)
 2. Bright Data
 3. vidIQ
 4. Вэб хайлт (fallback)
@@ -9,7 +10,22 @@
 
 ---
 
-## 1. Apify MCP: санал болгох
+## 0. Үнэгүй скрипт: үндсэн арга
+
+`scripts/free_fetch.py`: TikTok-ийг yt-dlp, Instagram-ийг Instaloader-оор уншина.
+`discover` (hashtag → аккаунт) ба `scan` (аккаунт → вирал бичлэг) гэсэн 2 команд.
+Дүрэм, командуудыг SKILL.md-ийн Алхам 3-аас, бүх сонголтыг `--help`-ээс хар.
+
+Түгээмэл алдаа:
+- TikTok "Unable to extract" → `python3 -m pip install --user -U yt-dlp` (TikTok өөрчлөгдөх
+  бүрт yt-dlp шинэчлэгддэг).
+- Instagram 401 / 429 / "login required" → `--session` (goat-setup), эсвэл 10–30 минут хүлээ.
+- Дагагчийн тоо `null` → аккаунтын хуудас бүрэн уншигдаагүй. Жижиг эсэхийг вэб хайлтаар
+  шалга, эсвэл тэр аккаунтыг алгас.
+
+---
+
+## 1. Apify MCP: нөөц
 
 Instagram, TikTok-ийн бүрэн нээлттэй дата (views, likes, comments, дагагч, огноо, caption).
 Нэвтрэлт нь OAuth тул token хуулах шаардлагагүй. Үнэгүй багцад сар бүр бага хэмжээний
