@@ -10,7 +10,7 @@ TikTok дээр **яг одоо вирал болж буй форматыг** б
 Claude Code дотор дараах хоёр командыг бичнэ:
 
 ```
-/plugin marketplace add OWNER/goat-academy-plugin
+/plugin marketplace add SaagiiSG/goat-academy-plugin
 ```
 
 ```
