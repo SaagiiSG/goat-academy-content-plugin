@@ -1,6 +1,6 @@
 # 🐐 GOAT Academy: Claude Code plugin
 
-<p align="center"><img src="assets/poster.png" alt="GOAT Academy: вирал формат олигч"></p>
+<p align="center"><img src="assets/poster.png" alt="GOAT Academy: вирал формат ологч"></p>
 
 GOAT Academy-ийн гишүүдэд зориулсан Claude Code plugin. Таны niche-д Instagram Reels болон
 TikTok дээр **яг одоо вирал болж буй форматыг** бодит датагаар олж, танд зориулсан
@@ -60,7 +60,7 @@ Claude Code-ийг дахин нээгээрэй. Эхний чатад Claude �
 hooks/                 Эхний 3 чатад тохируулах зааврыг санал болгох hook
 skills/goat-setup/     Тохируулах заавар
 skills/goat-viral-format/
-  SKILL.md             Вирал формат олигч
+  SKILL.md             Вирал формат ологч
   references/          Форматын сан, tool-уудын заавар
   scripts/free_fetch.py  Үнэгүй scraper (yt-dlp + Instaloader)
 ```

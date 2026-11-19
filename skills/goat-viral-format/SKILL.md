@@ -1,7 +1,7 @@
 ---
 name: goat-viral-format
 description: >
-  GOAT Academy-ийн гишүүдэд зориулсан Вирал формат олигч. Гишүүний niche-д Instagram Reels
+  GOAT Academy-ийн гишүүдэд зориулсан Вирал формат ологч. Гишүүний niche-д Instagram Reels
   болон TikTok дээр яг одоо ажиллаж буй ВИРАЛ ФОРМАТУУДЫГ бодит датагаар (аккаунтын дунджаас
   3x+ илүү үзэлт авсан бичлэг = outlier) олж, формат бүрийг задлаад, гишүүн өөрөө хийж чадах
   10 бэлэн пост санаа (дэгээ, бүтэц, CTA) болгон, профайл руу traffic өсгөх стратегид
@@ -14,7 +14,7 @@ description: >
   "find viral formats", or asks what to post to grow their Instagram or TikTok.
 ---
 
-# GOAT Viral Format — Вирал формат олигч
+# GOAT Viral Format — Вирал формат ологч
 
 GOAT Academy-ийн гишүүн өөрийн niche-д **яг одоо ажиллаж буй** форматыг олоод, түүнийгээ
 өөрийн дуу хоолойгоор хийж, профайл руугаа traffic татах зорилготой.
