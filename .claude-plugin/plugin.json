@@ -1,7 +1,7 @@
 {
-  "name": "goat-academy",
-  "version": "0.2.0",
-  "description": "GOAT Academy content machine: finds viral Instagram Reels and TikTok formats, creates posts with a Jun Yuh-based idea engine, and schedules them. Mongolian-first.",
+  "name": "goat-content-machine",
+  "version": "0.3.0",
+  "description": "GOAT Academy content machine: finds viral Instagram Reels and TikTok formats, creates posts with a Jun Yuh-based idea engine and the GOAT video plugins, and schedules them. Mongolian-first.",
   "author": {
     "name": "GOAT Academy"
   },

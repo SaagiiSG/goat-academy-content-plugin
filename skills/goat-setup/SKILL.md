@@ -22,7 +22,7 @@ Members are not programmers. So:
 - Never ask for a password or API key in chat. Never print `keys.env`.
 - Mongolian, plain words. Explain a technical term once, briefly.
 
-Total time: about 15 minutes. Tell the member that at the start.
+Total time: about 20–30 minutes (most of it waiting for installs). Tell the member that at the start.
 
 ## Step 0 — Where are we
 
@@ -91,28 +91,83 @@ it tells you their current level and what already works.
 Write `~/.goat-academy/profile.md` with clear headings. Show a 5-line summary and ask
 "зөв үү?".
 
-## Step 4 — Mongolian voice (ElevenLabs)
+## Step 4 — Video tools (about 5–10 minutes, mostly waiting)
 
-Video skills use ElevenLabs for the Mongolian voice-over.
+Videos come from the GOAT video plugins (`skills/goat-week/references/video-production.md`
+has the full list). Ask two things first:
+- Нүүрээ харуулж бичлэг хийх үү? (yes → video looks; no → animation)
+- Сард видеонд хэдэн төгрөг/доллар зарцуулж болох вэ? Animation costs about $0.75–1.50 per
+  video on kie.ai, plus ElevenLabs. Looks for their own footage are free. Save the monthly
+  budget in `profile.md`.
 
-1. Ask if they have an ElevenLabs account. If not: elevenlabs.io → sign up. The free plan has
-   a small monthly allowance; more videos need a paid plan. Tell them this honestly.
-2. They copy their API key (Profile → API Keys) and save it **themselves**. Create the file
-   for them with a placeholder and open it in their editor:
-   ```bash
-   [ -f ~/.goat-academy/keys.env ] || printf 'ELEVENLABS_API_KEY=энд_түлхүүрээ_тавина\n' > ~/.goat-academy/keys.env; chmod 600 ~/.goat-academy/keys.env
-   ```
-   Tell them: open `~/.goat-academy/keys.env`, replace the placeholder, save. Never paste it
-   in chat.
-3. Check it exists without printing it:
-   ```bash
-   grep -q '^ELEVENLABS_API_KEY=sk' ~/.goat-academy/keys.env && echo key-ok || echo key-missing
-   ```
-   (ElevenLabs keys start with `sk_`. If not, ask them to recheck.)
-4. Voice choice: ask whether they want their own cloned voice (ElevenLabs Voice Lab, needs a
-   1-minute recording) or a stock voice. Note the choice and voice name in `profile.md`.
+### 4a. Install the plugins (Claude runs these, member approves)
 
-Skipping is fine: videos will then use the member's own recorded voice or text-only.
+Pick 3–4 looks that fit their business (table in video-production.md), plus animation if
+they want faceless videos. For each look:
+```bash
+claude plugin marketplace add SaagiiSG/goat-doodle-notes && claude plugin install goat-doodle-notes@goat-doodle-notes
+```
+(same pattern for goat-word-behind, goat-glass-ribbon, goat-grid-explainer, goat-scrapbook,
+goat-product-void, goat-proof-frame). Animation and avatar:
+```bash
+claude plugin marketplace add SaagiiSG/goat-academy-plugins && claude plugin install animation-engine@goat-academy && claude plugin install avatar-maker@goat-academy
+```
+Afterwards the member types `/reload-plugins` (or restarts Claude Code) so the new skills
+load. Record the installed looks in `profile.md`.
+
+### 4b. Install the tools they need
+
+Check: `node --version` (22+), `ffmpeg -version`, `whisper-cli --help` (whisper-cpp),
+`python3 -c "import PIL"`. Install only what's missing, after asking:
+- Mac (Homebrew): `brew install node ffmpeg whisper-cpp`; `python3 -m pip install --user pillow`.
+  No Homebrew? Offer to install it (brew.sh one-liner) or point to the nodejs.org /
+  ffmpeg installers.
+- Windows: `winget install OpenJS.NodeJS.LTS` and `winget install Gyan.FFmpeg`, reopen the
+  terminal; for captions follow the whisper step in the goat-doodle-notes skill;
+  `py -m pip install pillow`.
+Tell them: the first talking video downloads a ~1.6 GB speech model once; after that it's
+fast. Everything in the looks runs on their computer, nothing is uploaded.
+
+### 4c. Keys (the member types them, never in chat)
+
+- **ElevenLabs** (Mongolian voice): elevenlabs.io → Profile → API Keys. Free plan is small;
+  regular videos need a paid plan.
+- **kie.ai** (animation and avatar, only if they want those): kie.ai/api-key, then top up
+  credits (1 credit = $0.005).
+
+Create the key file with placeholders and open it for them:
+```bash
+mkdir -p ~/.goat-academy; [ -f ~/.goat-academy/keys.env ] || printf 'ELEVENLABS_API_KEY=\nKIE_API_KEY=\n' > ~/.goat-academy/keys.env; chmod 600 ~/.goat-academy/keys.env
+```
+Tell them: open `~/.goat-academy/keys.env` (on Mac: `open -e ~/.goat-academy/keys.env`),
+paste each key after its `=`, save. Then make every new Claude Code session load it. Mac /
+Linux, add once to the shell profile (`~/.zshrc` on Mac, else `~/.bashrc`):
+```bash
+grep -q goat-academy/keys.env ~/.zshrc 2>/dev/null || printf '\n# GOAT Academy keys\n[ -f ~/.goat-academy/keys.env ] && set -a && . ~/.goat-academy/keys.env && set +a\n' >> ~/.zshrc
+```
+Windows (PowerShell; the file is `%USERPROFILE%\.goat-academy\keys.env`), run once after
+they fill it. It copies the keys into their user environment without showing them:
+```powershell
+Get-Content "$HOME\.goat-academy\keys.env" | ForEach-Object { if ($_ -match '^(\w+)=(.+)$') { [Environment]::SetEnvironmentVariable($matches[1], $matches[2], 'User') } }
+```
+(Run it again whenever they change a key.)
+
+Check without printing values:
+```bash
+for k in ELEVENLABS_API_KEY KIE_API_KEY; do grep -q "^$k=." ~/.goat-academy/keys.env && echo "$k ok" || echo "$k missing"; done
+```
+Then they restart Claude Code once so the keys are loaded.
+
+### 4d. Voice and avatar (optional, 2 minutes)
+
+- Voice: their own cloned voice (ElevenLabs Voice Lab, a 1-minute recording) or a stock
+  voice. Note the choice in `profile.md`.
+- Avatar: if they'll use animation, offer the `make-avatar` skill with one clear photo of
+  them (~$0.09). Save the set to `~/.goat-academy/avatar/`: the animations then star a
+  cartoon version of the member every time.
+
+Skipping is fine: without keys the machine makes carousels and edits their own clips with
+the free looks.
 
 ## Step 5 — Start the machine
 

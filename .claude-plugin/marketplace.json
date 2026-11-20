@@ -1,5 +1,5 @@
 {
-  "name": "goat-academy",
+  "name": "goat-content-machine",
   "owner": {
     "name": "GOAT Academy"
   },
@@ -8,10 +8,10 @@
   },
   "plugins": [
     {
-      "name": "goat-academy",
+      "name": "goat-content-machine",
       "source": "./",
       "description": "Контент машин: вирал формат, санаа, видео/carousel, автомат товлолт (Instagram, TikTok)",
-      "version": "0.2.0"
+      "version": "0.3.0"
     }
   ]
 }

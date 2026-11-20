@@ -17,14 +17,14 @@ GOAT Academy-ийн гишүүдэд зориулсан контент маши�
 
 ## Суулгах
 
-Шаардлага: Claude Code, [Node.js](https://nodejs.org) (LTS), Google Chrome.
+Шаардлага: Claude Code, [Node.js](https://nodejs.org) 22+, Google Chrome. Видеоны хэрэгслүүдийг (ffmpeg, whisper-cpp, GOAT видео plugin-ууд) тохиргооны үеэр Claude өөрөө суулгана.
 
 ```
 /plugin marketplace add SaagiiSG/goat-academy-content-plugin
 ```
 
 ```
-/plugin install goat-academy@goat-academy
+/plugin install goat-content-machine@goat-content-machine
 ```
 
 Claude Code-ийг дахин нээгээрэй. Эхний чатад Claude өөрөө тохируулах заавраар (15 минут)
@@ -47,13 +47,27 @@ Claude Code-ийг дахин нээгээрэй. Эхний чатад Claude �
 авсан бичлэг.** Том аккаунт дагагчдынхаа хүчээр үзэлт авдаг. Жижиг аккаунтын огцом өсөлт
 бол *формат* ажилласны баталгаа, үүнийг та давтаж чадна.
 
+## Видео
+
+Видеог GOAT-ийн видео plugin-ууд хийнэ. Тохиргооны үеэр Claude таны бизнест тохирохыг нь
+суулгана:
+
+| Plugin | Юунд |
+|---|---|
+| [Doodle Notes](https://github.com/SaagiiSG/goat-doodle-notes), [Word Behind](https://github.com/SaagiiSG/goat-word-behind), [Glass Ribbon](https://github.com/SaagiiSG/goat-glass-ribbon), [Grid Explainer](https://github.com/SaagiiSG/goat-grid-explainer), [Scrapbook](https://github.com/SaagiiSG/goat-scrapbook), [Product Void](https://github.com/SaagiiSG/goat-product-void), [Proof Frame](https://github.com/SaagiiSG/goat-proof-frame) | Таны өөрийн бичлэг, зургийг эдитлэнэ |
+| [Animation Engine, Avatar Maker](https://github.com/SaagiiSG/goat-academy-plugins) | Нүүр харуулахгүй AI анимэйшн, монгол дуу хоолойтой; таны cartoon аватар |
+
 ## Үнэ
 
 | Хэсэг | Үнэ |
 |---|---|
 | Plugin, browser, судалгаа, carousel, товлолт | 0₮ |
-| Монгол AI дуу хоолой ([ElevenLabs](https://elevenlabs.io)) | Үнэгүй багц бага; олон видеонд төлбөртэй багц |
-| Нөөц дата: [yt-dlp](https://github.com/yt-dlp/yt-dlp), [Instaloader](https://github.com/instaloader/instaloader) | 0₮ (Python хэрэгтэй) |
+| Өөрийн бичлэгийг эдитлэх (video look-ууд) | 0₮ (таны компьютер дээр ажиллана) |
+| AI анимэйшн ([kie.ai](https://kie.ai)) | ~$0.75–1.50 нэг видео |
+| Аватар (kie.ai) | ~$0.09, нэг удаа |
+| Монгол дуу хоолой ([ElevenLabs](https://elevenlabs.io)) | Үнэгүй багц бага; олон видеонд төлбөртэй багц |
+
+Сарын төсвөө тохиргооны үеэр хэлнэ; машин түүнээс хэтрүүлэхгүй.
 
 ## Нууцлал
 

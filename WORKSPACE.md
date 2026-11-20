@@ -16,7 +16,9 @@ next to the `skills/` folder).
 | `results.md` | goat-review | One row per posted item: date, platform, format, idea, hook, views at 48h / 7d, notes |
 | `weeks/<YYYY>-W<NN>/` | goat-week | `plan.md` and one folder per post (`post-01/` ...) with `script.md`, `caption.md`, media files, `status.txt` |
 | `inbox/` | member | Clips the member filmed themselves, to be used by goat-week |
-| `keys.env` | member only | `ELEVENLABS_API_KEY=...`. The member writes this file themselves. Never print its contents, never ask for the key in chat |
+| `keys.env` | member only | `ELEVENLABS_API_KEY=...`, `KIE_API_KEY=...`. The member writes this file themselves; the shell profile loads it. Never print its contents, never ask for a key in chat |
+| `avatar/` | goat-setup | The member's cartoon avatar set (make-avatar), used as the character in animations |
+| `spend.md` | goat-week | kie.ai credits spent per post, to stay inside the monthly budget in `profile.md` |
 
 ### `state.json`
 
