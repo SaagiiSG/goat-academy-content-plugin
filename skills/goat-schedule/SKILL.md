@@ -19,6 +19,15 @@ approved in this session; in autonomous mode, posts that passed goat-week's qual
 Never upload anything from outside the week folder, never to an account other than the
 member's (`state.json` handles).
 
+## Daily quota (anti-ban rule)
+
+Before anything, read WORKSPACE.md → Pace limits and `state.json` → `upload_log`,
+`cooldown_until`. Upload **at most 2 posts today in total** (each platform upload counts as
+one), never more, even if many posts are `ready` and even if the member asks to "do them
+all". Explain once that it protects their account. Pick the `ready` posts with the earliest
+publish times first. Wait 2–5 minutes between the two uploads. Log each successful upload in
+`upload_log` immediately. Skip any platform under cooldown.
+
 ## Why native schedulers
 
 TikTok Studio schedules up to ~10 days ahead; Meta Business Suite schedules Instagram (and

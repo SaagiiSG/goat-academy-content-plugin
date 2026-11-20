@@ -39,8 +39,9 @@ Tell the member in one line what you're about to do and roughly how long it take
    - Ideas marked `needs-member-input`: ask the member for the true story now (one question
      per idea). If they don't answer, swap the idea.
 4. Pick posting times: if `results.md` shows best times use them; else TikTok 19:00–21:00 and
-   Instagram 12:00–13:00 or 20:00–21:00 local time, spread across the week, no two posts on
-   the same platform on the same day.
+   Instagram 12:00–13:00 or 20:00–21:00 local time. Obey WORKSPACE.md → Pace limits: **at
+   most 2 posts per day across all platforms** (a cross-posted video counts twice), ≥ 4 h
+   apart. So the week holds at most 14 posts; cut the plan to fit before creating anything.
 5. Write `plan.md`: table of posts (no., day/time, platform(s), media type, idea id, hook,
    mission). Mark ideas `planned` in `idea-bank.md`.
 
@@ -83,16 +84,19 @@ fast: after 2–3 similar answers, turn them into a firm rule and stop asking ab
 **After day 14** (`today - start_date ≥ 14` and `autonomy_asked` is false): before reviewing,
 show what you learned (top rules from `taste.md`, best and worst posts from `results.md`)
 and ask once: "Одоо би өөрөө бүрэн ажиллаад, товлосон постуудаа танд тайлан болгож илгээх
-үү? Хүссэн үедээ буцааж болно." Save the answer (WORKSPACE.md → Modes).
+үү? Хүссэн үедээ буцааж болно." Save the answer (WORKSPACE.md → Modes). If they say yes, offer the daily autopilot right away
+(the `goat-autopilot` skill, part A): without it the machine only works when they open Claude.
 
 **autonomous mode**: skip per-post review, except the cases WORKSPACE.md lists as "stop and
 ask". Run your own quality check strictly against `taste.md`.
 
 ## 5. Schedule
 
-Run the `goat-schedule` skill with the week folder. It uploads each approved post to TikTok
-Studio and Meta Business Suite with its planned time and writes the result to each post's
-`status.txt`.
+Mark each approved post `ready` in its `status.txt`. Then run `goat-schedule`: it uploads
+**today's quota only** (max 2, WORKSPACE.md → Pace limits), each scheduled for its planned
+time. The rest go up on the following days: goat-autopilot does that daily; without
+autopilot, the session hook reminds the member to open Claude so the next uploads happen.
+Plan publish times so every post can be uploaded at least a day before it goes live.
 
 ## 6. Report
 

@@ -1,0 +1,197 @@
+<title>GOAT Profile Audit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single reading column, profile card on top, lens cards as a scorecard, then actions and weekly history. */
+:root {
+  --bg: #f3f4f1;
+  --surface: #ffffff;
+  --fg: #17201c;
+  --muted: #5d6a63;
+  --line: #dde2dc;
+  --accent: #1f6f53;
+  --accent-soft: #e2efe8;
+  --good: #1f7a4a; --good-bg: #e3f3ea;
+  --warn: #9a6200; --warn-bg: #fbefd6;
+  --weak: #b23a2e; --weak-bg: #f9e2de;
+  --none: #66707a; --none-bg: #eceef0;
+  --font-display: "Unbounded", "Manrope", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1412; --surface: #171e1b; --fg: #e8eee9; --muted: #9aa8a0; --line: #2a3530;
+  --accent: #5fc39a; --accent-soft: #1d2e27;
+  --good: #6fd39c; --good-bg: #183225; --warn: #f0b955; --warn-bg: #33281a;
+  --weak: #f08a7e; --weak-bg: #3a201d; --none: #a3acb4; --none-bg: #232a2e; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1412; --surface: #171e1b; --fg: #e8eee9; --muted: #9aa8a0; --line: #2a3530;
+  --accent: #5fc39a; --accent-soft: #1d2e27;
+  --good: #6fd39c; --good-bg: #183225; --warn: #f0b955; --warn-bg: #33281a;
+  --weak: #f08a7e; --weak-bg: #3a201d; --none: #a3acb4; --none-bg: #232a2e; color-scheme: dark; }
+
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 700; }
+h2 { font-size: 1.15rem; font-weight: 700; }
+h3 { font-size: 1rem; font-weight: 500; }
+p { margin: 0; }
+.eyebrow { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+header.top { display: grid; gap: 10px; }
+.meta-line { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .88rem; color: var(--muted); }
+
+.profile { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 16px; }
+.profile-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.handle { font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+.stat { display: grid; gap: 2px; }
+.stat b { font-family: var(--font-mono); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.stat .delta { font-size: .78rem; font-family: var(--font-mono); }
+.delta.up { color: var(--good); } .delta.down { color: var(--weak); }
+.bio { white-space: pre-line; border-left: 3px solid var(--line); padding-left: 12px; min-width: 0; overflow-wrap: anywhere; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: .8rem; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--fg); }
+
+.summary { display: grid; gap: 10px; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+.pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.s-good { color: var(--good); background: var(--good-bg); }
+.s-warn { color: var(--warn); background: var(--warn-bg); }
+.s-weak { color: var(--weak); background: var(--weak-bg); }
+.s-none { color: var(--none); background: var(--none-bg); }
+
+.lenses { display: grid; gap: 12px; }
+.lens { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; min-width: 0; }
+.lens-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.lens-title { display: grid; gap: 2px; min-width: 0; }
+.score { display: flex; gap: 3px; align-items: center; }
+.score i { width: 18px; height: 6px; border-radius: 3px; background: var(--line); display: block; }
+.score i.on { background: var(--accent); }
+.lens .fix { background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; }
+.lens .fix b { font-weight: 700; }
+.src { font-size: .75rem; color: var(--muted); font-family: var(--font-mono); }
+
+ol.actions { margin: 0; padding-left: 1.3em; display: grid; gap: 12px; }
+ol.actions li { padding-left: 4px; }
+ol.actions li b { display: block; }
+
+.bios { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.bio-card { background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 6px; min-width: 0; }
+.bio-card pre { margin: 0; font-family: var(--font-body); white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; min-width: 520px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+section { display: grid; gap: 12px; }
+.note { font-size: .88rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<!-- The weekly audit run replaces only the JSON between AUDIT_DATA_START and AUDIT_DATA_END. -->
+<script type="application/json" id="audit-data">
+/*AUDIT_DATA_START*/{}/*AUDIT_DATA_END*/
+</script>
+
+<main class="wrap" id="app">
+  <p class="muted">Аудит ачааллаж байна…</p>
+</main>
+
+<script>
+(function () {
+  var raw = document.getElementById("audit-data").textContent;
+  var json = raw.replace("/*AUDIT_DATA_START*/", "").replace("/*AUDIT_DATA_END*/", "").trim();
+  var d;
+  try { d = JSON.parse(json); } catch (e) { d = null; }
+  var app = document.getElementById("app");
+  if (!d || !d.profile) { app.innerHTML = '<p class="muted">Аудитын өгөгдөл алга байна.</p>'; return; }
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var STATUS = { good: ["s-good", "Сайн"], warn: ["s-warn", "Сайжруулах"], weak: ["s-weak", "Сул"], none: ["s-none", "Хэмжээгүй"] };
+  function pill(s) { var x = STATUS[s] || STATUS.none; return '<span class="pill ' + x[0] + '">' + x[1] + "</span>"; }
+  function bar(n) { if (n == null) return ""; var h = '<span class="score" aria-label="' + n + ' / 5">'; for (var i = 1; i <= 5; i++) h += '<i class="' + (i <= n ? "on" : "") + '"></i>'; return h + "</span>"; }
+  function fmt(n) { if (n == null) return "—"; return Number(n).toLocaleString("en-US"); }
+
+  var p = d.profile, hist = d.history || [], prev = hist.length > 1 ? hist[hist.length - 2] : null;
+  function delta(key) {
+    if (!prev || prev[key] == null || p[key] == null) return "";
+    var diff = p[key] - prev[key]; if (!diff) return '<span class="delta">0</span>';
+    return '<span class="delta ' + (diff > 0 ? "up" : "down") + '">' + (diff > 0 ? "+" : "") + fmt(diff) + " 7 хоногт</span>";
+  }
+
+  var counts = { good: 0, warn: 0, weak: 0, none: 0 };
+  (d.lenses || []).forEach(function (l) { counts[l.status] = (counts[l.status] || 0) + 1; });
+
+  var h = "";
+  h += '<header class="top"><span class="eyebrow">GOAT профайл аудит · ' + esc(d.platform || "Instagram") + "</span>";
+  h += "<h1>" + esc(p.name || p.handle) + "</h1>";
+  h += '<div class="meta-line"><span>Шинэчилсэн: <span class="mono">' + esc(d.updated) + "</span></span><span>Аудит №" + esc(hist.length || 1) + "</span><span>Арга: Jun Yuh-ийн контентын аргачлал</span></div></header>";
+
+  h += '<section class="profile" aria-label="Профайл"><div class="profile-head"><span class="handle">@' + esc(p.handle) + '</span>';
+  if (p.url) h += '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">Профайл нээх</a>';
+  h += '</div><div class="stats">';
+  h += '<div class="stat"><span class="eyebrow">Дагагч</span><b>' + fmt(p.followers) + "</b>" + delta("followers") + "</div>";
+  h += '<div class="stat"><span class="eyebrow">Пост</span><b>' + fmt(p.posts) + "</b>" + delta("posts") + "</div>";
+  h += '<div class="stat"><span class="eyebrow">Дагаж буй</span><b>' + fmt(p.following) + "</b></div>";
+  if (p.median_views != null) h += '<div class="stat"><span class="eyebrow">Ердийн үзэлт</span><b>' + fmt(p.median_views) + "</b>" + delta("median_views") + "</div>";
+  h += "</div>";
+  if (p.bio) h += '<p class="bio">' + esc(p.bio) + "</p>";
+  if (p.link) h += '<p class="muted">Линк: <span class="mono">' + esc(p.link) + "</span>" + (p.link_note ? " · " + esc(p.link_note) : "") + "</p>";
+  if (p.highlights && p.highlights.length) {
+    h += '<div><span class="eyebrow">Highlights (' + p.highlights.length + ')</span><div class="chips">';
+    p.highlights.forEach(function (x) { h += '<span class="chip">' + esc(x) + "</span>"; });
+    h += "</div></div>";
+  }
+  if (p.recent && p.recent.length) {
+    h += '<div><span class="eyebrow">Сүүлийн постууд</span><div class="chips">';
+    p.recent.forEach(function (x) { h += '<span class="chip">' + esc(x) + "</span>"; });
+    h += "</div></div>";
+  }
+  h += "</section>";
+
+  h += '<section class="summary"><h2>Товчхондоо</h2><p>' + esc(d.summary) + '</p><div class="tally">';
+  ["good", "warn", "weak", "none"].forEach(function (k) { if (counts[k]) h += pill(k).replace("</span>", " · " + counts[k] + "</span>"); });
+  h += "</div></section>";
+
+  h += '<section><h2>Эхлээд хийх 3 зүйл</h2><ol class="actions">';
+  (d.actions || []).forEach(function (a) { h += "<li><b>" + esc(a.title) + "</b>" + esc(a.detail) + "</li>"; });
+  h += "</ol></section>";
+
+  h += '<section><h2>8 өнцгөөр</h2><div class="lenses">';
+  (d.lenses || []).forEach(function (l) {
+    h += '<article class="lens"><div class="lens-head"><div class="lens-title"><h3>' + esc(l.name) + '</h3><span class="muted">' + esc(l.question) + "</span></div>";
+    h += '<div style="display:flex;gap:10px;align-items:center">' + bar(l.score) + pill(l.status) + "</div></div>";
+    h += "<p>" + esc(l.finding) + "</p>";
+    if (l.fix) h += '<p class="fix"><b>Засах:</b> ' + esc(l.fix) + "</p>";
+    if (l.sources) h += '<span class="src">Эх сурвалж: ' + esc(l.sources) + "</span>";
+    h += "</article>";
+  });
+  h += "</div></section>";
+
+  if (d.bio_options && d.bio_options.length) {
+    h += '<section><h2>Bio-н хувилбар</h2><div class="bios">';
+    d.bio_options.forEach(function (b) { h += '<div class="bio-card"><span class="eyebrow">' + esc(b.label) + "</span><pre>" + esc(b.text) + '</pre><span class="muted">' + esc(b.why) + "</span></div>"; });
+    h += "</div></section>";
+  }
+
+  h += '<section><h2>Долоо хоног бүрийн түүх</h2><div class="table-wrap"><table><thead><tr><th>Огноо</th><th>Дагагч</th><th>Пост</th><th>Ердийн үзэлт</th><th>Тэмдэглэл</th></tr></thead><tbody>';
+  hist.slice().reverse().forEach(function (r) {
+    h += '<tr><td class="num">' + esc(r.date) + '</td><td class="num">' + fmt(r.followers) + '</td><td class="num">' + fmt(r.posts) + '</td><td class="num">' + fmt(r.median_views) + "</td><td>" + esc(r.note) + "</td></tr>";
+  });
+  h += "</tbody></table></div></section>";
+
+  h += '<p class="note">' + esc(d.data_note) + " Аудитын аргачлал: Jun Yuh-ийн нийтэд нээлттэй 34 видеоноос эмхэтгэсэн контентын зарчмууд (S-дугаар нь эх видеог заана). Энэ бол Jun Yuh өөрөө биш.</p>";
+  app.innerHTML = h;
+})();
+</script>

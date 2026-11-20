@@ -78,6 +78,28 @@ def after_setup(state):
             "once whether the machine may run on its own, as goat-week step 4 describes."
         )
 
+    report = STATE_DIR / "autopilot" / "last-run.md"
+    try:
+        seen = state.get("autopilot_report_seen")
+        mtime = date.fromtimestamp(report.stat().st_mtime).isoformat()
+        if report.exists() and seen != mtime:
+            notes.append(
+                "The GOAT autopilot ran while the member was away. In your first reply, summarize "
+                f"{report} in 2-4 Mongolian lines (what was made, uploaded, what needs them), then "
+                f"set autopilot_report_seen to \"{mtime}\" in state.json."
+            )
+    except Exception:
+        pass
+
+    if not state.get("autopilot") and state.get("mode") == "autonomous":
+        today = date.today().isoformat()
+        if (state.get("upload_log") or {}).get(today) is None:
+            notes.append(
+                "Autopilot is not installed, so posts are only uploaded when the member opens "
+                "Claude. If any post in ~/.goat-academy/weeks is marked ready, offer in one line "
+                "to upload today's (max 2) now with goat-schedule."
+            )
+
     if since_week is None or since_week >= WEEK_DUE_DAYS:
         if mode == "autonomous":
             notes.append(

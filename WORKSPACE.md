@@ -15,6 +15,8 @@ next to the `skills/` folder).
 | `idea-bank.md` | goat-ideas | Ideas with status: `new`, `planned`, `posted`, `rejected` |
 | `results.md` | goat-review | One row per posted item: date, platform, format, idea, hook, views at 48h / 7d, notes |
 | `weeks/<YYYY>-W<NN>/` | goat-week | `plan.md` and one folder per post (`post-01/` ...) with `script.md`, `caption.md`, media files, `status.txt` |
+| `audit/<handle>/` | goat-audit | `data.json` (scores + weekly history) and `audit.html` (the audit page) |
+| `autopilot/` | goat-autopilot | `run.sh`/`run.cmd`, `autopilot.log`, `last-run.md` (latest unattended run report) |
 | `inbox/` | member | Clips the member filmed themselves, to be used by goat-week |
 | `keys.env` | member only | `ELEVENLABS_API_KEY=...`, `KIE_API_KEY=...`. The member writes this file themselves; the shell profile loads it. Never print its contents, never ask for a key in chat |
 | `avatar/` | goat-setup | The member's cartoon avatar set (make-avatar), used as the character in animations |
@@ -35,7 +37,14 @@ next to the `skills/` folder).
   "instagram_handle": "...",
   "tiktok_handle": "...",
   "instagram_scheduler": "business_suite | instagram_app_only | none",
-  "guided_sessions": 1
+  "guided_sessions": 1,
+  "upload_log": {},
+  "cooldown_until": {},
+  "last_audit": "2026-11-20",
+  "audit_artifact_url": "https://claude.ai/artifact/...",
+  "autopilot": {"time": "09:00", "installed_on": "2026-12-05"},
+  "last_autopilot_run": "2026-12-06",
+  "paused": false
 }
 ```
 
@@ -55,6 +64,30 @@ rest. Create the folder and file if missing.
   mentions a real person, a sale or price, anything health or money related that makes a
   promise, or a failed upload.
 - The member can switch back anytime ("асуугаад хийдэг болго"); set `mode` to `learning`.
+
+## Pace limits (anti-ban rule, never relax it)
+
+Platforms flag accounts that act like bots. Everything that goes out through Claude's
+browser follows these limits, in every mode, interactive or autopilot:
+
+- **At most 2 posts per calendar day from this browser, all platforms together.** One video
+  sent to both Instagram and TikTok counts as 2. This covers both uploads (the browser work
+  of creating or scheduling a post) and publish times (no more than 2 posts going live per
+  day).
+- The 2 publish times on a day are at least 4 hours apart.
+- Within one run, wait 2–5 minutes between two uploads; type captions at a human pace
+  (`browser_type` without instant fill where the tool allows it); no rapid repeated clicks.
+- Track it in `state.json` → `upload_log`: `{"2026-11-20": [{"post": "W47/post-01",
+  "platform": "tiktok", "publish_at": "2026-11-21T20:00"}]}`. Before any upload, count
+  today's entries; at 2, stop and leave the rest for the next day.
+- Research browsing (other people's profiles) is separate but still slow: ≤ 25 profiles per
+  run, a few seconds between pages.
+- If a platform shows a warning, captcha or "unusual activity": stop all browser work on that
+  platform for 48 hours (`state.json` → `cooldown_until`) and tell the member.
+
+Because uploads are capped at 2 a day, a week of posts is uploaded day by day (by
+goat-autopilot, or whenever the member opens Claude), each one scheduled for its planned
+time.
 
 ## The browser
 
