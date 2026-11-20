@@ -107,8 +107,8 @@ they want faceless videos. For each look:
 ```bash
 claude plugin marketplace add SaagiiSG/goat-doodle-notes && claude plugin install goat-doodle-notes@goat-doodle-notes
 ```
-(same pattern for goat-word-behind, goat-glass-ribbon, goat-grid-explainer, goat-scrapbook,
-goat-product-void, goat-proof-frame). Animation and avatar:
+(same pattern for goat-word-behind, goat-grid-explainer, goat-scrapbook, goat-product-void,
+goat-proof-frame). Animation and avatar:
 ```bash
 claude plugin marketplace add SaagiiSG/goat-academy-plugins && claude plugin install animation-engine@goat-academy && claude plugin install avatar-maker@goat-academy
 ```

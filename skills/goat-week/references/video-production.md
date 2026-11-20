@@ -4,11 +4,13 @@ Videos are made by separate GOAT plugins that `goat-setup` installs. This machin
 edits video itself: it prepares the inputs, invokes the right skill, and checks the result.
 Each video skill has its own full instructions; follow them once invoked.
 
+Glass Ribbon (`goat-glass-ribbon`) is left out on purpose while it is being reworked. Don't use
+it even if the member has it installed, until this file lists it.
+
 | Plugin (marketplace) | Skill | Input | Cost |
 |---|---|---|---|
 | `goat-doodle-notes@goat-doodle-notes` | `goat-doodle-notes` | member's clips or photos | free (runs locally) |
 | `goat-word-behind@goat-word-behind` | `goat-word-behind` | talking-head clip | free |
-| `goat-glass-ribbon@goat-glass-ribbon` | `goat-glass-ribbon` | talking-head clip | free |
 | `goat-grid-explainer@goat-grid-explainer` | `goat-grid-explainer` | talking-head clip | free |
 | `goat-scrapbook@goat-scrapbook` | `goat-scrapbook` | clips + photos | free |
 | `goat-product-void@goat-product-void` | `goat-product-void` | product photos | free |
@@ -31,13 +33,13 @@ the `goat-setup` video step; meanwhile fall back (below).
 
 | Post format / content | Best look | Also good |
 |---|---|---|
-| Talking-head opinion, myth vs truth, hot take | Word Behind Head | Glass Ribbon |
+| Talking-head opinion, myth vs truth, hot take | Word Behind Head | Doodle Notes |
 | Step-by-step, how to book, app or process demo | Grid Explainer | Doodle Notes (paper page) |
 | Tips list, pointing at things, features, "look here" | Doodle Notes | Word Behind (chips) |
 | Before / after, transformation, result proof | Proof Frame | Scrapbook |
 | Product showcase, new arrivals, price | Product Void | Scrapbook, Doodle Notes |
 | Lifestyle, journal, behind the scenes, salon/boutique | Scrapbook | Doodle Notes |
-| Premium beauty, skincare, wellness talking head | Glass Ribbon | Word Behind |
+| Premium beauty, skincare, wellness talking head | Word Behind Head | Scrapbook |
 
 Rotate looks across the week so the feed doesn't repeat; in learning mode, try at least 3
 different looks over the 2 weeks and record which the member likes in `taste.md`.

@@ -54,7 +54,7 @@ Claude Code-ийг дахин нээгээрэй. Эхний чатад Claude �
 
 | Plugin | Юунд |
 |---|---|
-| [Doodle Notes](https://github.com/SaagiiSG/goat-doodle-notes), [Word Behind](https://github.com/SaagiiSG/goat-word-behind), [Glass Ribbon](https://github.com/SaagiiSG/goat-glass-ribbon), [Grid Explainer](https://github.com/SaagiiSG/goat-grid-explainer), [Scrapbook](https://github.com/SaagiiSG/goat-scrapbook), [Product Void](https://github.com/SaagiiSG/goat-product-void), [Proof Frame](https://github.com/SaagiiSG/goat-proof-frame) | Таны өөрийн бичлэг, зургийг эдитлэнэ |
+| [Doodle Notes](https://github.com/SaagiiSG/goat-doodle-notes), [Word Behind](https://github.com/SaagiiSG/goat-word-behind), [Grid Explainer](https://github.com/SaagiiSG/goat-grid-explainer), [Scrapbook](https://github.com/SaagiiSG/goat-scrapbook), [Product Void](https://github.com/SaagiiSG/goat-product-void), [Proof Frame](https://github.com/SaagiiSG/goat-proof-frame) | Таны өөрийн бичлэг, зургийг эдитлэнэ |
 | [Animation Engine, Avatar Maker](https://github.com/SaagiiSG/goat-academy-plugins) | Нүүр харуулахгүй AI анимэйшн, монгол дуу хоолойтой; таны cartoon аватар |
 
 ## Үнэ
