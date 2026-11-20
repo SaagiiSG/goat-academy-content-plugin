@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "goat-browser": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@0.0.86"]
+    }
+  }
+}

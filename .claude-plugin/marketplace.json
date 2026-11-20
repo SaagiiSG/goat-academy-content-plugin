@@ -10,8 +10,8 @@
     {
       "name": "goat-academy",
       "source": "./",
-      "description": "Вирал формат ологч ба тохируулах заавар (Instagram Reels, TikTok)",
-      "version": "0.1.0"
+      "description": "Контент машин: вирал формат, санаа, видео/carousel, автомат товлолт (Instagram, TikTok)",
+      "version": "0.2.0"
     }
   ]
 }

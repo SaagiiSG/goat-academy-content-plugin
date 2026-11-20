@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 """GOAT Academy SessionStart hook.
 
-For a member's first few Claude Code sessions after installing the plugin, this
-tells Claude to open with the Mongolian setup guide. It stops once setup is
-marked done (by the goat-setup skill) or after MAX_GUIDED_SESSIONS sessions.
+- Before setup: for the member's first few sessions, tells Claude to open with the
+  Mongolian setup guide (goat-setup).
+- After setup: tells Claude when a new content week is due (goat-week), and when the
+  14-day learning period is over and it should ask about running on its own.
 
 State lives in ~/.goat-academy/state.json. Nothing is sent anywhere.
 """
 import json
 import sys
+from datetime import date
 from pathlib import Path
 
 MAX_GUIDED_SESSIONS = 3
+WEEK_DUE_DAYS = 6
+LEARNING_DAYS = 14
 STATE_DIR = Path.home() / ".goat-academy"
 STATE_FILE = STATE_DIR / "state.json"
 
@@ -31,41 +35,76 @@ def save_state(state):
         pass  # never block a session because of state
 
 
-def main():
-    state = load_state()
-    if state.get("setup_done"):
-        return 0
+def days_since(iso):
+    try:
+        return (date.today() - date.fromisoformat(str(iso)[:10])).days
+    except Exception:
+        return None
 
+
+def before_setup(state):
     count = int(state.get("guided_sessions", 0)) + 1
     if count > MAX_GUIDED_SESSIONS:
-        return 0
+        return None
     state["guided_sessions"] = count
     save_state(state)
-
     if count == 1:
-        stage = (
-            "This is the member's FIRST session since installing the GOAT Academy plugin. "
-            "Before anything else, greet them warmly in Mongolian (2-3 sentences: what the plugin "
-            "does, that setup takes about 5 minutes) and offer to start setup right now by running "
-            "the goat-setup skill. If they agree, invoke the goat-setup skill."
+        return (
+            "This is the member's FIRST session since installing the GOAT Academy content "
+            "machine plugin. Before anything else, greet them warmly in Mongolian (2-3 "
+            "sentences: it researches viral formats, creates their posts and schedules them on "
+            "Instagram and TikTok; setup takes about 15 minutes) and offer to start setup now "
+            "with the goat-setup skill. If they agree, invoke goat-setup."
         )
-    else:
-        stage = (
-            f"This is session {count} of {MAX_GUIDED_SESSIONS} since the member installed the GOAT "
-            "Academy plugin, and setup is not finished yet. In your first reply, add ONE short "
-            "Mongolian line reminding them that setup is unfinished and that typing /goat-setup "
-            "continues it. Then help with whatever they asked. Do not push further if they decline."
+    return (
+        f"This is session {count} of {MAX_GUIDED_SESSIONS} since the member installed the GOAT "
+        "Academy plugin, and setup is not finished. In your first reply add ONE short Mongolian "
+        "line saying setup is unfinished and /goat-setup continues it. Then help with what they "
+        "asked. Do not push if they decline."
+    )
+
+
+def after_setup(state):
+    notes = []
+    mode = state.get("mode", "learning")
+    since_week = days_since(state.get("last_week_run"))
+    since_start = days_since(state.get("start_date"))
+
+    if mode == "learning" and not state.get("autonomy_asked") and since_start is not None \
+            and since_start >= LEARNING_DAYS:
+        notes.append(
+            f"The member's {LEARNING_DAYS}-day learning period is over. When the next goat-week "
+            "run starts (or now, if they have no other request), show what was learned and ask "
+            "once whether the machine may run on its own, as goat-week step 4 describes."
         )
 
+    if since_week is None or since_week >= WEEK_DUE_DAYS:
+        if mode == "autonomous":
+            notes.append(
+                "A new content week is due and the member granted autonomous mode. Unless they "
+                "asked for something else, tell them in one Mongolian line that you are "
+                "preparing next week's content, then run the goat-week skill."
+            )
+        else:
+            notes.append(
+                "A new content week is due. In your first reply, offer in one Mongolian line to "
+                "prepare and schedule next week's content now (goat-week skill). Then help with "
+                "what they asked."
+            )
+    return " ".join(notes) or None
+
+
+def main():
+    state = load_state()
+    msg = after_setup(state) if state.get("setup_done") else before_setup(state)
+    if not msg:
+        return 0
     context = (
-        "[GOAT Academy plugin] " + stage + " If the member says setup is already done or asks you "
-        "to stop these reminders, run the goat-setup skill's 'mark done' step."
+        "[GOAT Academy plugin] " + msg + " The member can stop these reminders by saying so; "
+        "then set setup_done true (before setup) or note it in state.json."
     )
     print(json.dumps({
-        "hookSpecificOutput": {
-            "hookEventName": "SessionStart",
-            "additionalContext": context,
-        }
+        "hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": context}
     }, ensure_ascii=False))
     return 0
 

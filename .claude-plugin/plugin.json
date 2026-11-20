@@ -1,10 +1,17 @@
 {
   "name": "goat-academy",
-  "version": "0.1.0",
-  "description": "GOAT Academy: find viral Instagram Reels and TikTok formats in your niche and turn them into post ideas that grow your traffic. Mongolian-first.",
+  "version": "0.2.0",
+  "description": "GOAT Academy content machine: finds viral Instagram Reels and TikTok formats, creates posts with a Jun Yuh-based idea engine, and schedules them. Mongolian-first.",
   "author": {
     "name": "GOAT Academy"
   },
-  "keywords": ["instagram", "tiktok", "reels", "viral", "content-ideas", "mongolian"],
+  "keywords": [
+    "instagram",
+    "tiktok",
+    "reels",
+    "viral",
+    "content-ideas",
+    "mongolian"
+  ],
   "license": "MIT"
 }
