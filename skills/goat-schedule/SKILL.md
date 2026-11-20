@@ -34,12 +34,22 @@ TikTok Studio schedules up to ~10 days ahead; Meta Business Suite schedules Inst
 Facebook) posts weeks ahead. Once scheduled, posts go out on time even when Claude and the
 computer are off. So the machine only needs to run once a week.
 
+## Which browser
+
+Read `upload_browser` in `state.json` (WORKSPACE.md → The browsers):
+- `"builtin"`: do everything in Claude's built-in browser.
+- `"helper"` or missing: open the upload pages in the helper browser (`goat-browser`), which
+  can attach local files (`browser_file_upload`). The member logged in there during setup.
+If the chosen browser shows a login page, follow the login rule (ask the member, or skip when
+unattended).
+
 ## General method (both platforms)
 
 The upload pages change their layout often. Don't rely on remembered button positions:
 1. Navigate, then `browser_snapshot` to read the page.
-2. Find the file input / upload area; use `browser_file_upload` with the absolute file
-   path(s). For carousels, upload all slide PNGs in order.
+2. Find the file input / upload area and attach the file(s) by absolute path (helper browser:
+   `browser_file_upload`; built-in browser: its file-attach action). For carousels, attach
+   all slide PNGs in order.
 3. Wait for processing to finish (snapshot until the progress indicator is gone).
 4. Paste the caption from `caption.md` with `browser_type` into the caption field.
 5. Switch on "Schedule" and set the date and time from `plan.md` (check the time zone the

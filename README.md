@@ -17,7 +17,12 @@ GOAT Academy-ийн гишүүдэд зориулсан контент маши�
 
 ## Суулгах
 
-Шаардлага: Claude Code, [Node.js](https://nodejs.org) 22+, Google Chrome. Видеоны хэрэгслүүдийг (ffmpeg, whisper-cpp, GOAT видео plugin-ууд) тохиргооны үеэр Claude өөрөө суулгана.
+Шаардлага: **Claude desktop апп** ([татах](https://claude.com/download)), **Code** таб дээр
+ажиллуулна. Claude апп-ын өөрийн browser-оор Instagram, TikTok-доо нэвтэрнэ. Node.js 22+,
+Google Chrome, видеоны хэрэгслүүдийг (ffmpeg, whisper-cpp, GOAT видео plugin-ууд)
+тохиргооны үеэр Claude өөрөө суулгана.
+
+Claude апп-ын **Code** таб дээр дараах хоёр командыг бичнэ:
 
 ```
 /plugin marketplace add SaagiiSG/goat-academy-content-plugin
@@ -27,8 +32,9 @@ GOAT Academy-ийн гишүүдэд зориулсан контент маши�
 /plugin install goat-content-machine@goat-content-machine
 ```
 
-Claude Code-ийг дахин нээгээрэй. Эхний чатад Claude өөрөө тохируулах заавраар (15 минут)
-дагуулна: browser нээгдэж, Instagram, TikTok-доо нэг удаа нэвтэрнэ.
+Апп-аа дахин нээгээрэй. Эхний чатад Claude өөрөө тохируулах заавраар (20–30 минут)
+дагуулна: Claude-ийн browser-т Instagram, TikTok-доо нэг удаа нэвтэрч, брэндээ тодорхойлж,
+өдөр бүрийн autopilot-оо асаана (Claude апп нээлттэй, компьютер сэрүүн байх тохиргоотой).
 
 ## Командууд
 

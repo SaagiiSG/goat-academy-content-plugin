@@ -24,7 +24,7 @@ present: add TikTok as a second section of lenses only if it has data). If the m
 another URL or handle ("audit this account"), audit that one but don't change their weekly
 audit; give it its own data folder `~/.goat-academy/audit/<handle>/`.
 
-## 2. Collect (goat-browser, logged in)
+## 2. Collect (Claude's built-in browser, logged in)
 
 Open `https://www.instagram.com/<handle>/` and read with snapshots:
 - name, bio (exact text), link, followers, following, post count, category, highlights
@@ -81,8 +81,8 @@ as `~/.goat-academy/audit/<handle>/audit.html`.
   `data.json` as `artifact_url`). Later runs: read the artifact once with that URL, then
   publish the new file with `url` set to it, so the link never changes. If a publish is
   refused because the page changed, merge onto the version it returns and publish again.
-- No Artifact tool (or it fails): open `audit.html` in the goat-browser for the member, and
-  tell them where the file is. The weekly file is overwritten in place.
+- No Artifact tool (or it fails): open `audit.html` in the helper browser (`goat-browser`;
+  the built-in browser can't open local files) and tell the member where the file is. The weekly file is overwritten in place.
 
 Set `last_audit: <today>` in `state.json`. When run by the member, end with the link and the
 3 actions in chat. When run by goat-autopilot, put the link in the run report.

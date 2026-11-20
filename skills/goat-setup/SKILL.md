@@ -34,25 +34,33 @@ Skip any step whose result already exists (`profile.md` present → skip Step 3,
 If `setup_done` is true, ask what they want to change (re-login, edit profile, voice) and do
 only that.
 
-## Step 1 — Open Claude's browser
+## Step 1 — Claude's browser
 
-The plugin brings its own browser (the `goat-browser` tools). Test it: navigate to
-`https://www.tiktok.com` and take a snapshot.
+The machine works in **Claude's built-in browser** (WORKSPACE.md → The browsers).
 
-- **Works** → a browser window opens on the member's screen. Tell them: "Энэ бол миний
-  ажилладаг browser. Үүнийг хааж болохгүй, ажил дууссаны дараа би өөрөө хаана."
-- **Tools missing or `npx` / Node error** → Node.js is not installed. Tell the member to
-  install the LTS version from nodejs.org (one installer, next-next-finish), then fully quit
-  and reopen Claude Code, then type `/goat-setup` again. On Mac with Homebrew you may run
-  `brew install node` yourself with their OK.
-- **"Browser not installed" / Chrome not found** → the browser runs on Google Chrome. Ask the
-  member to install Chrome from google.com/chrome (normal installer), then try again. They
-  don't have to use Chrome themselves; Claude just needs it on the computer.
+1. Load the built-in browser tools (ToolSearch for `mcp__Claude_Browser__`, or
+   `mcp__remote-devices__Claude_Browser__`; call `enable__mcp__remote-devices__Claude_Browser`
+   first if that's the only one). Open `https://www.tiktok.com` with `preview_start`, then
+   `tabs_context`.
+   - **Works** → tell the member: "Энэ бол миний ажилладаг browser, Claude апп-ын баруун
+     талд харагдана. Та юу хийж байгааг минь харж болно."
+   - **No built-in browser tools** → the member is in the terminal, not the desktop app. Ask
+     them to install the Claude desktop app (claude.com/download), sign in, open the **Code**
+     tab, choose a folder, install the plugin there the same way, and type `/goat-setup`
+     again. If they can't, continue with the helper browser (`goat-browser`) for everything;
+     the autopilot then uses the backup method in goat-autopilot.
+2. Check the helper browser too (it draws carousel slides): navigate the `goat-browser` to
+   `about:blank`.
+   - Fails with `npx` / Node error → Node.js missing: install the LTS from nodejs.org (or
+     `brew install node` on Mac with their OK), then restart the desktop app.
+   - "Chrome not found" → install Google Chrome (google.com/chrome); the member doesn't
+     have to use it themselves.
 
 ## Step 2 — Log in once (the member does this)
 
-Open each site in the goat-browser and ask the member to log in **in that window** (not their
-usual browser). Wait for "болсон" after each.
+In the **built-in browser**, open each site and ask the member to log in there (not in their
+usual browser). Call `tabs_context` first and make sure the pane is showing (Cmd+Shift+B on
+Mac, Ctrl+Shift+B on Windows). Wait for "болсон" after each.
 
 1. `https://www.instagram.com/` — their own account.
 2. `https://www.tiktok.com/login` — their own account.
@@ -64,12 +72,20 @@ usual browser). Wait for "болсон" after each.
      Settings → Instagram account → Connect). It's free and takes 5 minutes.
    - If they decline: set `instagram_scheduler` to `none`. The machine will then post Instagram
      items at the planned time only while Claude is running, or hand them to the member.
-4. Verify each login with a snapshot (profile icon visible, not a login form). Read and save
-   their handles. Record in `state.json`: `platforms`, `instagram_handle`, `tiktok_handle`,
+4. Verify each login by reading the page (profile icon visible, not a login form). Save their
+   handles. Record in `state.json`: `platforms`, `instagram_handle`, `tiktok_handle`,
    `instagram_scheduler` (`business_suite` if step 3 works).
 
-Mention once: use the browser normally; if a platform asks for a security code, the member
-types it in the window.
+**Upload check (once).** Posting needs the browser to attach a video file to the upload
+page. Open `https://www.tiktok.com/tiktokstudio/upload` in the built-in browser and see
+whether any of its tools can put a local file into the upload field (a file-upload or attach
+action; don't upload anything real, just confirm the ability exists). Then:
+- It can → `upload_browser: "builtin"`.
+- It can't → `upload_browser: "helper"`. Open TikTok Studio and Meta Business Suite in the
+  **helper browser** too and ask the member to log in there once more ("файл байршуулахад
+  зориулсан 2-р цонх"). It remembers the login.
+
+If a platform asks for a security code, the member types it in the pane.
 
 ## Step 3 — Brand profile (interview, ~5 minutes)
 
@@ -85,7 +101,7 @@ plus pillars" method (`skills/goat-ideas/brain/frameworks.md`, framework 1 and 2
    нүүрээ харуулах уу, эсвэл AI дуу хоолой + анимэйшн уу?
 7. Брэндийн өнгө, фонт байгаа юу? (If not, pick 2 colors + 1 font for them.)
 
-Also open their own profiles in the browser and read their last 12 posts (views, topics):
+Also open their own profiles in the built-in browser and read their last 12 posts (views, topics):
 it tells you their current level and what already works.
 
 Write `~/.goat-academy/profile.md` with clear headings. Show a 5-line summary and ask
@@ -174,9 +190,12 @@ the free looks.
 1. Set in `state.json`: `setup_done: true`, `start_date: <today>`, `mode: "learning"`,
    `autonomy_asked: false`.
 2. Explain in 4 lines how it works:
-   - Долоо хоног бүр би: вирал формат судална → санаа гаргана → видео, carousel хийнэ →
+   - Өдөр бүр товлосон цагт би өөрөө ажиллана (autopilot). Долоо хоног бүр: вирал формат судална → санаа гаргана → видео, carousel хийнэ →
      танд үзүүлнэ → TikTok Studio, Meta Business Suite-д товлоод тавина.
    - Эхний 2 долоо хоног пост бүрийг танд үзүүлж, юу таалагдсаныг сурна.
    - Дараа нь хүсвэл би бүрэн өөрөө ажиллана.
    - Хэзээ ч `/goat-week` гэж бичээд эхлүүлж болно.
-3. Offer to run the first week now: invoke the `goat-week` skill.
+3. **Autopilot (5 minutes):** run the `goat-autopilot` skill, part A: keep-awake settings
+   (A1) and the daily scheduled task (A2). In learning mode it only prepares drafts and
+   uploads posts the member approved, so it's safe to turn on from day one.
+4. Offer to run the first week now: invoke the `goat-week` skill.

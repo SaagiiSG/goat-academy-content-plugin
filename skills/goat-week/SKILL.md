@@ -84,8 +84,8 @@ fast: after 2–3 similar answers, turn them into a firm rule and stop asking ab
 **After day 14** (`today - start_date ≥ 14` and `autonomy_asked` is false): before reviewing,
 show what you learned (top rules from `taste.md`, best and worst posts from `results.md`)
 and ask once: "Одоо би өөрөө бүрэн ажиллаад, товлосон постуудаа танд тайлан болгож илгээх
-үү? Хүссэн үедээ буцааж болно." Save the answer (WORKSPACE.md → Modes). If they say yes, offer the daily autopilot right away
-(the `goat-autopilot` skill, part A): without it the machine only works when they open Claude.
+үү? Хүссэн үедээ буцааж болно." Save the answer (WORKSPACE.md → Modes). The daily autopilot (set up in goat-setup) follows the
+new mode from its next run; if it isn't set up yet, offer `goat-autopilot` part A now.
 
 **autonomous mode**: skip per-post review, except the cases WORKSPACE.md lists as "stop and
 ask". Run your own quality check strictly against `taste.md`.

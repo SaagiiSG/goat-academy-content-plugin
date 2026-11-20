@@ -17,7 +17,7 @@ Read `WORKSPACE.md` (plugin root) first.
 
 For every post in `weeks/*/post-*/status.txt` marked `scheduled` whose time has passed and
 that has no 48h (or 7d) numbers in `results.md` yet:
-1. Open the member's own profile in the goat-browser (TikTok `@handle`, Instagram
+1. Open the member's own profile in Claude's built-in browser (TikTok `@handle`, Instagram
    `/handle/reels/` and the main grid). Find the post by date and caption.
 2. Read views, likes, comments, shares/saves where shown. For Instagram, Business Suite →
    Insights → Content gives reach and saves for professional accounts.

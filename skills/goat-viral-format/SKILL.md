@@ -61,7 +61,7 @@ default-оор (хоёр платформ, дагагч нэмэх, долоо �
 
 ## Алхам 2 — Дата цуглуулах арга
 
-**Үндсэн арга: Claude-ийн өөрийн browser** (`goat-browser` tools, `WORKSPACE.md`-г хар).
+**Үндсэн арга: Claude-ийн built-in browser** (Claude desktop апп-ын browser, `WORKSPACE.md` → The browsers).
 Гишүүн `goat-setup`-д Instagram, TikTok-д нэг удаа нэвтэрсэн тул профайлын хуудас бүр
 бичлэг бүрийн үзэлтийг шууд харуулна. Python, нэмэлт суулгац хэрэггүй.
 

@@ -1,6 +1,7 @@
 # Carousels: design and render
 
-No design app needed: write each slide as HTML and screenshot it in the goat-browser.
+No design app needed: write each slide as HTML and screenshot it in the helper browser
+(`goat-browser`; Claude's built-in browser can't open local files).
 
 ## Design rules
 
@@ -20,7 +21,7 @@ No design app needed: write each slide as HTML and screenshot it in the goat-bro
 For each slide:
 1. Write the slide as a complete HTML file to `post-NN/slides/slide-01.html` (body exactly
    1080×1350, `margin:0`, no scrollbars).
-2. In the goat-browser: `browser_resize` to width 1080, height 1350; navigate to
+2. In the helper browser: `browser_resize` to width 1080, height 1350; navigate to
    `about:blank`; with `browser_evaluate` replace the document with the HTML
    (`() => { document.open(); document.write(HTML); document.close(); }`, the HTML string
    JSON-escaped); `browser_wait_for` ~1 s so the font loads.
